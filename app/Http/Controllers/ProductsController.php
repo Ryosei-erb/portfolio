@@ -14,6 +14,11 @@ class ProductsController extends Controller
         return view("product.index", ["products" => $products]);
     }
 
+    public function show($id) {
+        $product = Product::find($id);
+        return view("product.show", ["product" => $product]);
+    }
+
     public function create() {
         return view("product.create");
     }
