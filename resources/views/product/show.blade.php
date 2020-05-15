@@ -32,6 +32,28 @@
                                 <div class="pickup_times-label">希望受け取り日時：</div>
                                 <div class="single-pickup_times">{{$product->pickup_times}}</div>
                             </div>
+                            <div class="favoriteBox">
+                                @if (Auth::check() && $product->user->name != Auth::user()->name)
+                                    @if (!empty($favorite))
+                                        <form class="like-you" action="/favorites/{{$favorite->id}}" method="post">
+                                            @csrf
+                                            <div class="disattach-star"><i class="fas fa-star"></i></div>
+                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                            <input type="submit" class="like-button" name="お気に入り済み" value="「お気に入り済み」: {{$product->favorites->count()}}">
+                                        </form>
+                                    @else
+                                        <form class="like-you" action="/favorites" method="post">
+                                            @csrf
+                                            <div class="attach-star"><i class="fas fa-star"></i></div>
+                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                            <input type="submit" class="like-button" name="お気に入り登録" value="お気に入り登録する: {{$product->favorites->count()}}">
+                                        </form>
+                                    @endif
+                                @else
+                                    <div class="like-button">お気に入り数：</div>
+                                    <div class="like-count">{{$product->favorites->count()}}</div>
+                                @endif
+                            </div>
                             <div class="row">
                                 <div class="chat-space">
                                     <div class="chatBox">

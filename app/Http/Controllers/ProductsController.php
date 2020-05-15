@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Membership;
 use App\Room;
+use App\Favorite;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
@@ -31,7 +32,13 @@ class ProductsController extends Controller
             endforeach;
         endif;
 
-        return view("product.show", ["product" => $product, "user" => $user, "room_id" => $room_id]);
+        //お気に入り機能
+        $favorite = [];
+        if (Auth::check()):
+            $favorite = Favorite::where("user_id", Auth::user()->id)->where("product_id", $product->id)->first();
+        endif;
+
+        return view("product.show", ["product" => $product, "user" => $user, "room_id" => $room_id, "favorite" => $favorite]);
     }
 
     public function create() {
