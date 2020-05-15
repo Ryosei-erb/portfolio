@@ -34,6 +34,7 @@ class ProductsIndexTest extends DuskTestCase
             ->screenshot("file");
         });
     }
+
     public function testIndextoShowLink() {
         $this->browse(function (Browser $browser) {
             $browser->visit("/products")
@@ -41,8 +42,7 @@ class ProductsIndexTest extends DuskTestCase
             ->assertDontSee("Lorem ipsum dolor sit amet, consectetur adipisicing elit,")
             ->clickLink("product_sample")
             ->assertPathIs("/products/" . $this->product->id)
-            ->assertSee("Lorem ipsum dolor sit amet, consectetur adipisicing elit,")
-            ->screenshot("test4");
+            ->assertSee("Lorem ipsum dolor sit amet, consectetur adipisicing elit,");
         });
     }
 }
