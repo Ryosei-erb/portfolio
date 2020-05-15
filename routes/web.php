@@ -6,3 +6,7 @@ Route::resource("products", "ProductsController", ["only" => ["index", "show", "
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
