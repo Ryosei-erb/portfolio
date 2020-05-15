@@ -15,4 +15,12 @@ class Product extends Model
       "pickup_times" => "required|string",
       "price" => "required|integer",
     );
+
+    public function user() {
+      return $this->belongsTo("App\User");
+    }
+
+    public function room() {
+      return $this->hasOne("App\Room");
+    }
 }
