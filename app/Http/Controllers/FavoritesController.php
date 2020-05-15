@@ -17,4 +17,5 @@ class FavoritesController extends Controller
       $favorite = Favorite::find($id);
       $favorite->delete();
       return redirect("/products/" . $request->product_id);
+    }
 }
