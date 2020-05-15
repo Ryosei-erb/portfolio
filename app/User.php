@@ -19,7 +19,11 @@ class User extends Authenticatable
     public function memberships() {
       return $this->hasMany("App\Membership");
     }
-    
+
+    public function favorites() {
+      return $this->hasMany("App\Favorite");
+    }
+
     use Notifiable;
 
     /**

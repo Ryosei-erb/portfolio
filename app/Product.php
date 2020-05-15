@@ -23,4 +23,8 @@ class Product extends Model
     public function room() {
       return $this->hasOne("App\Room");
     }
+
+    public function favorites() {
+      return $this->hasMany("App\Favorite");
+    }
 }
