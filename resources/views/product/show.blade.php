@@ -98,3 +98,26 @@
     </section>
 </div>
 @endsection
+
+<script type="text/javascript">
+let map
+let geocoder
+function initMap() {
+    geocoder = new google.maps.Geocoder()
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: {{ $lat }}, lng:  {{ $lng }} },
+        zoom: 15,
+        styles: [{
+            stylers: [
+                { hue: "#FF8C00" }, { saturation: -50 },
+                { lightness: 20 }, {gamma: 0.5 }
+            ]
+        }],
+    });
+    marker = new google.maps.Marker({
+        position: { lat: {{ $lat }}, lng:  {{ $lng }} },
+        map: map
+    });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config("app.gmaps_key") }}&callback=initMap" async defer></script>

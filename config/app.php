@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    "gmaps_key" => env("GMAPS_KEY"),
     'name' => env('APP_NAME', 'Laravel'),
 
     /*

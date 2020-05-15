@@ -46,7 +46,7 @@ class ProductsController extends Controller
         $lat = $geo["results"][0]["geometry"]["location"]["lat"];
         $lng = $geo["results"][0]["geometry"]["location"]["lng"];
 
-        return view("product.show", ["product" => $product, "user" => $user, "room_id" => $room_id, "favorite" => $favorite, "geo" => $geo, "lat" => $lat, "lng" => $lng]);
+        return view("product.show", ["product" => $product, "user" => $user, "room_id" => $room_id, "favorite" => $favorite, "lat" => $lat, "lng" => $lng]);
     }
 
     public function create() {
