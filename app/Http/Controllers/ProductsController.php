@@ -15,6 +15,10 @@ class ProductsController extends Controller
         $this->validate($request, Product::$rules);
         $product = new Product;
 
+        $filename = $request->file("image")->getClientOriginalName();
+        $img = Image::make($request->file("image"));
+        $img->resize(500,500)->save( public_path() . "/images/" . $filename);
+
         $product->name = $request->name;
         $product->description = $request->description;
         $product->pickup_times = $request->pickup_times;
