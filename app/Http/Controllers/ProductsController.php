@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Membership;
+use App\Room;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
@@ -16,7 +18,20 @@ class ProductsController extends Controller
 
     public function show($id) {
         $product = Product::find($id);
-        return view("product.show", ["product" => $product]);
+
+        //ダイレクトメッセージ機能
+        $user = $product->user;
+        $room_id = [];
+        if (Auth::check()):
+            $memberships = Membership::where("user_id", Auth::user()->id)->get();
+            foreach ($memberships as $membership):
+                if ($membership->room->product_id == $product->id):
+                    $room_id = $membership->room_id;
+                endif;
+            endforeach;
+        endif;
+
+        return view("product.show", ["product" => $product, "user" => $user, "room_id" => $room_id]);
     }
 
     public function create() {

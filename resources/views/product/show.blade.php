@@ -6,7 +6,7 @@
     <div class="main-wapper">
         <section class="main-content">
             <div class="container">
-              <div class="row productBox">
+                <div class="row productBox">
                     <div class="col-lg-6">
                         <div class="product-left">
                             <div class="imageBox">
@@ -32,18 +32,47 @@
                                 <div class="pickup_times-label">希望受け取り日時：</div>
                                 <div class="single-pickup_times">{{$product->pickup_times}}</div>
                             </div>
+                            <div class="row">
+                                <div class="chat-space">
+                                    <div class="chatBox">
+                                        @if (Auth::user())
+                                            @if ($room_id != [])
+                                                <div class="already-has-chatting">
+                                                    <button type="button" class="restart-chat-button" onclick="location.href='/rooms/{{$room_id}}'">チャットを再開する</button>
+                                                </div>
+                                            @else
+                                                <form class="start-chat" action="/rooms" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                    <input type="hidden" name="user_id" value="{{$user->id}}">
+                                                    <input type="submit" class="start-chat-button" value="チャットを始める">
+                                                </form>
+                                            @endif
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="soldoutBox">
+                                    @if (Auth::user() && $product->user == Auth::user())
+                                        <form class="" action="/products/{{$product->id }}/sold" method="get">
+                                            @csrf
+                                            <button onlick="this.form.submit()" name="button" class="delete-button">SOLDとする</button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="single-product-locationBox">
-                    <div class="row map-tab">出品者の希望する合流場所</div>
-                    <div class="row single-product-location">
-                        <div id="map"></div>
-                    </div>
+        </div>
+        <div class="container">
+            <div class="single-product-locationBox">
+                <div class="row map-tab">出品者の希望する合流場所</div>
+                <div class="row single-product-location">
+                    <div id="map"></div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 @endsection
