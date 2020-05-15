@@ -9,7 +9,7 @@ use App\Favorite;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
-use "GoogleMaps";
+use GoogleMaps;
 
 class ProductsController extends Controller
 {
@@ -40,7 +40,13 @@ class ProductsController extends Controller
             $favorite = Favorite::where("user_id", Auth::user()->id)->where("product_id", $product->id)->first();
         endif;
 
-        return view("product.show", ["product" => $product, "user" => $user, "room_id" => $room_id, "favorite" => $favorite]);
+        //Gooogle Maps機能
+        $json = GoogleMaps::load('geocoding')->setParam(["address" => $product->address])->get();
+        $geo = json_decode($json, true);
+        $lat = $geo["results"][0]["geometry"]["location"]["lat"];
+        $lng = $geo["results"][0]["geometry"]["location"]["lng"];
+
+        return view("product.show", ["product" => $product, "user" => $user, "room_id" => $room_id, "favorite" => $favorite, "geo" => $geo, "lat" => $lat, "lng" => $lng]);
     }
 
     public function create() {
