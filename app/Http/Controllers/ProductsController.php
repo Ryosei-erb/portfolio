@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+    public function index(Request $request) {
+        $products = Product::all();
+        return view("product.index", ["products" => $products]);
+    }
+
     public function create() {
         return view("product.create");
     }
@@ -26,6 +31,7 @@ class ProductsController extends Controller
         $product->pickup_times = $request->pickup_times;
         $product->price = $request->price;
         $product->image = $filename;
+         $product->user_id = Auth::user()->id;
         $product->address = $request->address;
         $product->save();
         return redirect("/products");
