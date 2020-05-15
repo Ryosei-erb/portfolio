@@ -19,6 +19,7 @@ class ProductsController extends Controller
 
     public function show($id) {
         $product = Product::find($id);
+        if ($product->state == "sold") return redirect("/products/" . $product->id . "/sold");
 
         //ダイレクトメッセージ機能
         $user = $product->user;
@@ -58,9 +59,24 @@ class ProductsController extends Controller
         $product->pickup_times = $request->pickup_times;
         $product->price = $request->price;
         $product->image = $filename;
-         $product->user_id = Auth::user()->id;
+        $product->user_id = Auth::user()->id;
         $product->address = $request->address;
         $product->save();
         return redirect("/products");
     }
+
+    public function sold($id) {
+        $product = Product::find($id);
+        $product->state = "sold";
+        $product->save();
+        return view("product.sold", ["product" => $product]);
+    }
+
+    public function resale($id) {
+        $product = Product::find($id);
+        $product->state = "sale";
+        $product->save();
+        return redirect("/products/" . $product->id);
+    }
+
 }
