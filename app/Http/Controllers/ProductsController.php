@@ -9,6 +9,7 @@ use App\Favorite;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
+use "GoogleMaps";
 
 class ProductsController extends Controller
 {
