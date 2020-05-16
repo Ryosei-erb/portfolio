@@ -12,6 +12,5 @@ jobs:
       - run: docker-compose exec app composer install
       - run: cp .env.circleci .env
       - run: docker-compose exec app php artisan key:generate
-      - run:
       - run: docker-compose exec app php artisan migrate:refresh
       - run: docker-compose exec app vendor/bin/phpunit tests/Feature
