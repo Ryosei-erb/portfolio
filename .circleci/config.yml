@@ -9,6 +9,7 @@ jobs:
       - checkout
       - run: docker-compose up -d --build
       - run: docker-compose exec app composer create-project --prefer-dist "laravel/laravel=7.0"
+      - run: cp .env.circleci .env
       - run: docker-compose exec app composer install
       - run: docker-compose exec app php artisan key:generate
       - run: docker-compose exec app php artisan migrate
