@@ -1,0 +1,14 @@
+versin: 2
+jobs:
+  build:
+    machine: true
+    environment:
+      - DB_CONNECTION: circle_test
+    working_directory: ~/project
+    steps:
+      - checkout
+      - run: |
+          docker-compose up -d --build
+          docker-compose exec app composer create-project --prefer-dist "laravel/laravel=7.0"
+      - run: docker-compose exec app php artisan migrate
+      - run: docker-compose exec app vendor/bin/phpunit tests/Feature
