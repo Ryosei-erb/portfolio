@@ -1,17 +1,23 @@
-versin: 2
+version: 2
 jobs:
   build:
-    machine: true
+    docker:
+      - image: circleci/php:7.2-node-browsers
+      - image: circleci/mysql:5.7
+    environment:
+      - APP_DEBUG: true
+      - APP_ENV: local
+      - APP_KEY: base64:ZfjB4UnQu4wR/Gq4UFq2+9a25Is1n5U2vDrNiwh8xJ4=
+      - DB_CONNECTION: circle_test
+      - MYSQL_ALLOW_EMPTY_PASSWORD: true
+
     working_directory: ~/project
+
     steps:
       - checkout
-      - run: docker-compose up -d --build
-      - run: docker-compose stop
-      - run: docker-compose restart
-      - run: docker-compose exec app composer install
-      - run: docker-compose exec app cp .env.circleci .env
-      - run: docker-compose exec app php artisan key:generate
-      - run: docker-compose down --volumes --rmi all
-      - run: docker-compose up -d --build
-      - run: docker-compose exec app php artisan migrate
-      - run: docker-compose exec app vendor/bin/phpunit tests/Feature
+      - run: sudo apt-get update && sudo apt-get install -y libpng-dev libjpeg-dev
+      - run: sudo docker-php-ext-configure gd --with-png-dir=/usr/include --with-jpeg-dir=/usr/include
+      - run: sudo docker-php-ext-install pdo_mysql gd zip
+      - run: composer install -n --prefer-dist
+      - run: php artisan migrate
+      - run: php ./vendor/bin/phpunit tests/Feature

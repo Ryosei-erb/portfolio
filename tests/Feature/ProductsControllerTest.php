@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Support\Facades\Auth;
 use App\Product;
 use App\User;
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -64,9 +65,8 @@ class ProductsControllerTest extends TestCase
 
     public function testProductNameRequire() {
         $data = ["name" => ""];
-        $response = $this->from("/products/create")->post("/products", $data);
+        $response = $this->post("/products", $data);
         $response->assertSessionHasErrors(["name" => "The name field is required."]);
-        $response->assertStatus(302)->assertRedirect("/products/create");
     }
 
     public function testProductNameString() {
