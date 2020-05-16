@@ -9,7 +9,7 @@ jobs:
       - run: docker-compose stop
       - run: docker-compose restart
       - run: docker-compose exec app composer install
-      - run: cp .env.circleci .env
+      - run: docker-compose exec app cp .env.circleci .env
       - run: docker-compose exec app php artisan key:generate
       - run: docker-compose down --volumes --rmi all
       - run: docker-compose up -d --build
