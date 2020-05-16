@@ -2,8 +2,6 @@ versin: 2
 jobs:
   build:
     machine: true
-    environment:
-      - DB_CONNECTION: circle_test
     working_directory: ~/project
     steps:
       - checkout
