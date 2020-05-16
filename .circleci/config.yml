@@ -8,6 +8,7 @@ jobs:
       - run: docker-compose up -d --build
       - run: docker-compose exec app composer install
       - run: cp .env.circleci .env
+      - run: cp /docker /docker
       - run: docker-compose exec app php artisan key:generate
       - run: docker-compose exec db bash -c 'mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE}'
       - run: docker-compose exec app php artisan migrate:refresh
