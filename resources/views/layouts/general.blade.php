@@ -16,23 +16,23 @@
                 </li>
                 @if (Auth::check())
                     <li class="nav-item">
-                        <a href="/products/create" class="nav-link push-product-link" style: "color: #666666;">出品</a>
+                        <a href="/products/create" class="nav-link push-product-link" style="color: #666666;">出品</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/products" class="nav-link product-index-link" style: "color: #666666;">商品一覧</a>
+                        <a href="/products" class="nav-link product-index-link" style="color: #666666;">商品一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/logout" class="nav-link logout-link" style: "color: #666666;">ログアウト</a>
+                        <a href="/logout" class="nav-link logout-link" style="color: #666666;">ログアウト</a>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a href="/products" class="nav-link else-product-index-link" style: "color: #666666;">商品一覧</a>
+                        <a href="/products" class="nav-link else-product-index-link" style="color: #666666;">商品一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/register" class="nav-link signup-link" style: "color: #666666;">ユーザー登録</a>
+                        <a href="/register" class="nav-link signup-link" style="color: #666666;">ユーザー登録</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/login" class="nav-link signin-link" style: "color: #666666;">ログイン</a>
+                        <strong><a href="/login" class="nav-link signin-link" style="color: #9B1C38;">簡易ログイン</a></strong>
                     </li>
                 @endif
             </ul>
